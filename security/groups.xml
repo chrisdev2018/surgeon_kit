@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="manager" model="res.groups">
+            <field name="name">Droit admin de l'application surgeon kit</field>
+        </record>
+
+    </data>
+</odoo>

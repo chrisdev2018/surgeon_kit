@@ -11,7 +11,8 @@
         'base',
     ],
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/groups.xml',
+        'security/ir.model.access.csv',
         'data/datas.xml',
         'data/sequence.xml',
         'views/config_views.xml',
