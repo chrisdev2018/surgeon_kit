@@ -91,29 +91,29 @@ class SurgeryEntry(models.Model):
         store=True
     )
 
-    @api.one
     @api.depends('cases', 'surgeon_ids', 'category_id', 'surgery_id')
     def compute_amount(self):
-        if self.cases > 0 and self.surgeon_ids and self.category_id and self.surgery_id:
-            drugs_amount = 0
-            drugs_matrix = self.env['sk.matrix_materials_drugs'].search([('surgery_id', '=', self.surgery_id.id), ('category_id', '=', self.category_id.id)])
-            if drugs_matrix:
-                for line in drugs_matrix:
-                    drugs_amount += self.env['sk.materials_n_drugs'].search([(
-                        'id', '=', line.item_id.id
-                    )]).price * line.quantity
+        for record in self:
+            if record.cases > 0 and record.surgeon_ids and record.category_id and record.surgery_id:
+                drugs_amount = 0
+                drugs_matrix = self.env['sk.matrix_materials_drugs'].search([('surgery_id', '=', record.surgery_id.id), ('category_id', '=', record.category_id.id)])
+                if drugs_matrix:
+                    for line in drugs_matrix:
+                        drugs_amount += self.env['sk.materials_n_drugs'].search([(
+                            'id', '=', line.item_id.id
+                        )]).price * line.quantity
+                
+                surgeon_cost = 0
+                for surgeon in record.surgeon_ids:
+                    surgeon_cost += self.env['sk.matrix_surgeon'].search([
+                            ('surgery_id', '=', record.surgery_id.id),
+                            ('surgeon_id', '=', surgeon.id),
+                            ('category_id', '=', record.category_id.id)
+                        ]).rate
             
-            surgeon_cost = 0
-            for surgeon in self.surgeon_ids:
-                surgeon_cost += self.env['sk.matrix_surgeon'].search([
-                        ('surgery_id', '=', self.surgery_id.id),
-                        ('surgeon_id', '=', surgeon.id),
-                        ('category_id', '=', self.category_id.id)
-                    ]).rate
-           
-            team_motivation_cost = sum(self.env['sk.matrix_motivation'].search([('surgery_id', '=', self.surgery_id.id), ('category_id', '=', self.category_id.id)]).mapped('rate'))
+                team_motivation_cost = sum(self.env['sk.matrix_motivation'].search([('surgery_id', '=', record.surgery_id.id), ('category_id', '=', record.category_id.id)]).mapped('rate'))
 
-            self.total_amount = (drugs_amount + surgeon_cost + team_motivation_cost) * self.cases
+                record.total_amount = (drugs_amount + surgeon_cost + team_motivation_cost) * record.cases
 
 
     @api.constrains('cases')

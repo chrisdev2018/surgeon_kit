@@ -29,12 +29,12 @@ class SurgeonAllocationLine(models.Model):
         comodel_name='sk.surgery_entry', 
         string='Code Entry',
         ondelete="cascade")
-    
-    @api.one
+       
     @api.depends('surgery_entry_id')
     def _compute_date(self):
-        if self.surgery_entry_id:
-            self.date_entry = self.surgery_entry_id.entry_date  
+        for rec in self:
+            if rec.surgery_entry_id:
+                rec.date_entry = rec.surgery_entry_id.entry_date  
 
 class MotivationAllocationLine(models.Model):
     _name = 'sk.motivation_allocation_line'
@@ -60,8 +60,8 @@ class MotivationAllocationLine(models.Model):
         string='Code Entry',
         ondelete='cascade')
     
-    @api.one
     @api.depends('surgery_entry_id')
     def _compute_date(self):
-        if self.surgery_entry_id:
-            self.date_entry = self.surgery_entry_id.entry_date
+        for rec in self:
+            if rec.surgery_entry_id:
+                rec.date_entry = rec.surgery_entry_id.entry_date
