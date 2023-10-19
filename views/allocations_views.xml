@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>   
+        
+    <record model="ir.ui.view" id="view_sk_surgeon_allocation_tree">
+        <field name="name">surgeon_kit.surgeon_allocation.tree</field>
+        <field name="model">sk.surgeon_allocation_line</field>    
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="surgeon_id"/>
+                <field name="surgery_entry_id"/>
+                <field name="date_entry"/>
+                <field name="percentage"/>
+                <field name="payable"/>
+            </tree>
+        </field>
+    </record>
+        
+    <record model="ir.ui.view" id="view_sk_motivation_allocation_tree">
+        <field name="name">surgeon_kit.motivation_allocation.tree</field>
+        <field name="model">sk.motivation_allocation_line</field>    
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="motivation_section_id"/>
+                <field name="surgery_entry_id"/>
+                <field name="date_entry"/>
+                <field name="percentage"/>
+                <field name="payable"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    
+
+    <record model="ir.actions.act_window" id="action_surgeon_allocation_line">
+        <field name="name">Per Surgeon</field>
+        <field name="res_model">sk.surgeon_allocation_line</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_motivation_allocation_line">
+        <field name="name">Per Motivation Section</field>
+        <field name="res_model">sk.motivation_allocation_line</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <menuitem id="menu_action_surgery_allocations" name="Allocations" parent="surgeon_kit.menu_surgeon_kit" sequence="15"/>
+    <menuitem id="menu_action_surgeon_allocation" parent="menu_action_surgery_allocations" action="action_surgeon_allocation_line" sequence="10"/>
+    <menuitem id="menu_action_motivation_section_allocation" parent="menu_action_surgery_allocations" action="action_motivation_allocation_line" sequence="20"/>
+
+</odoo>

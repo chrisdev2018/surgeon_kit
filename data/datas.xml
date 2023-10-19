@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- surgeons -->
+    <record id="surgeon_1" model="sk.surgeon">
+        <field name='name'>Pr WELEDJI</field>
+    </record>
+    <record id="surgeon_2" model="sk.surgeon">
+        <field name='name'>Dr BOUGOUE</field>
+    </record>
+    <record id="surgeon_3" model="sk.surgeon">
+        <field name='name'>Dr MEKE</field>
+    </record>
+    <record id="surgeon_4" model="sk.surgeon">
+        <field name='name'>Dr TAGAKOU</field>
+    </record>
+    <record id="surgeon_5" model="sk.surgeon">
+        <field name='name'>Dr NANA</field>
+    </record>
+    <record id="surgeon_6" model="sk.surgeon">
+        <field name='name'>Dr SIMO</field>
+    </record>
+    <record id="surgeon_7" model="sk.surgeon">
+        <field name='name'>Dr EDIE</field>
+    </record>
+
+        <!-- Motivation sections -->
+
+    <record id="mt1" model="sk.motivation_section">
+        <field name='name'>MOTIVATION ANESTHETIST</field>
+    </record>
+    <record id="mt2" model="sk.motivation_section">
+        <field name='name'>MOTIVATION NURSING TEAM IN THEATRE</field>
+    </record>
+    <record id="mt3" model="sk.motivation_section">
+        <field name='name'>MOTIVATION NURSING TEAM IN WARD</field>
+    </record>
+    <record id="mt4" model="sk.motivation_section">
+        <field name='name'>MOTIVATION LAUNDRY MAID</field>
+    </record>
+
+
+        <!-- Categories -->
+
+        <record id="c1" model="sk.category">
+            <field name='name'>CAT 1A</field>
+        </record>
+        <record id="c2" model="sk.category">
+            <field name='name'>CAT 1B</field>
+        </record>
+        <record id="c3" model="sk.category">
+            <field name='name'>CAT1+GA</field>
+        </record>
+        <record id="c4" model="sk.category">
+            <field name='name'>CAT2</field>
+        </record>
+        <record id="c5" model="sk.category">
+            <field name='name'>CAT3</field>
+        </record>
+        <record id="c6" model="sk.category">
+            <field name='name'>CAT4</field>
+        </record>
+        <record id="c7" model="sk.category">
+            <field name='name'>CAT5</field>
+        </record>
+
+        <!-- Surgery Type -->
+        <record id="st1" model="sk.surgery">
+            <field name='name'>GENERAL SURGERY</field>
+        </record>
+        <record id="st2" model="sk.surgery">
+            <field name='name'>ENT</field>
+        </record>
+        <record id="st3" model="sk.surgery">
+            <field name='name'>TRAUMATOLOGY</field>
+        </record>
+        <record id="st4" model="sk.surgery">
+            <field name='name'>OBST and GYN</field>
+        </record>
+        <record id="st5" model="sk.surgery">
+            <field name='name'>PEDIATRIC SURGERY</field>
+        </record>
+</odoo>

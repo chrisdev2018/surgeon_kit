@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_surgeon_kit" name="Surgeon Kit"
+        sequence="10"/>
+    <menuitem id="menu_config_sk" name="Configuration"
+        parent="menu_surgeon_kit" sequence="30"/>
+   
+
+    <record model="ir.ui.view" id="view_surgeon_tree">
+        <field name="name">surgeon_kit.surgeon.tree</field>
+        <field name="model">sk.surgeon</field>
+        <field name="arch" type="xml">
+            <tree string="Sections" editable='top'>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_surgeon_tree">
+        <field name="name">Surgeon</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sk.surgeon</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem id="menu_action_surgeon_tree" parent="menu_config_sk" action="action_surgeon_tree" sequence="20"/>
+    
+    
+    <record model="ir.ui.view" id="view_motivation_section_tree">
+        <field name="name">surgeon_kit.motivation_section.tree</field>
+        <field name="model">sk.motivation_section</field>
+        <field name="arch" type="xml">
+            <tree string="Sections" editable='top'>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_motivation_section_tree">
+        <field name="name">Motivation Section</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sk.motivation_section</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem id="menu_action_motivation_section_tree" parent="menu_config_sk" action="action_motivation_section_tree" sequence="35"/>
+    
+    
+    <record model="ir.ui.view" id="view_materials_n_drugs_tree">
+        <field name="name">materials_n_drugs.tree</field>
+        <field name="model">sk.materials_n_drugs</field>
+        <field name="arch" type="xml">
+            <tree string="Materials and Drugs" editable='top'>
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
+                <field name="type"/>
+                <field name="price" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_materials_n_drugs_tree">
+        <field name="name">Materials &amp; Drugs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sk.materials_n_drugs</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem id="menu_action_materials_n_drugs_tree" parent="menu_config_sk" action="action_materials_n_drugs_tree" sequence="50"/>
+    
+    
+    <record model="ir.ui.view" id="view_category_tree">
+        <field name="name">surgeon_kit.category.tree</field>
+        <field name="model">sk.category</field>
+        <field name="arch" type="xml">
+            <tree string="Category" editable='top'>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_category_tree">
+        <field name="name">Cases Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sk.category</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem id="menu_action_category_tree" parent="menu_config_sk" action="action_category_tree" sequence="30"/>
+   
+    
+    
+    
+    <record model="ir.ui.view" id="view_sk_surgery_tree">
+        <field name="name">surgeon_kit.surgery.tree</field>
+        <field name="model">sk.surgery</field>    
+        <field name="arch" type="xml">
+            <tree string="Surgery Types">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_sk_surgery_form">
+        <field name="name">surgeon_kit.surgery.form</field>
+        <field name="model">sk.surgery</field>
+        <field name="arch" type="xml">
+            <form string="Surgery Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page name="motivation_matrix" string="Motivation Matrix">
+                            <field name="matrix_motivation_ids" >
+                                <tree string="Motivation Section Matrix" editable="bottom">
+                                    <field name="motivation_id" />
+                                    <field name="category_id" />
+                                    <field name="rate" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="surgeon_matrix" string="Surgeon Matrix">
+                            <field name="matrix_surgeon_ids" >
+                                <tree string="Surgeon Matrix" editable="bottom">
+                                    <field name="surgeon_id"/>
+                                    <field name="category_id" />
+                                    <field name="rate" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="materials_drugs_matrix" string="Materials &amp; Drugs Matrix">
+                            <field name="matrix_materials_n_drugs_ids" >
+                                <tree string="Materials &amp; Drugs Matrix" editable="bottom">
+                                    <field name="item_id" />
+                                    <field name="category_id" />
+                                    <field name="quantity" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_surgery_views">
+        <field name="name">Surgery type</field>
+        <field name="res_model">sk.surgery</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_action_surgery_views" parent="menu_config_sk" action="action_surgery_views" sequence="10"/>
+
+</odoo>

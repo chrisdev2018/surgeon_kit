@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>   
+        
+    <record model="ir.ui.view" id="view_sk_surgery_entry_tree">
+        <field name="name">surgeon_kit.surgery_entry.tree</field>
+        <field name="model">sk.surgery_entry</field>    
+        <field name="arch" type="xml">
+            <tree string="surgery_entry Types">
+                <field name="name"/>
+                <field name="surgery_id"/>
+                <field name="surgeon_ids"/>
+                <field name="category_id"/>
+                <field name="entry_date"/>
+                <field name="cases"/>
+                <field name="validated" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_sk_surgery_entry_form">
+        <field name="name">surgeon_kit.surgery_entry.form</field>
+        <field name="model">sk.surgery_entry</field>
+        <field name="arch" type="xml">
+            <form string="surgery_entry Type">
+                <header>
+                    <field name="validated" invisible="1"/>
+                    <button string="Validate" name="validate"
+                        type="object" class="oe_highlight" attrs="{'invisible': [('validated', '=', True)]}"/>                    
+                </header>
+                <sheet>
+                    <group>
+                        <group><field name="name"/></group>
+                        <group><field name="entry_date"  attrs="{'readonly': [('validated', '=', True)]}"/></group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="surgery_id" attrs="{'readonly': [('validated', '=', True)]}"/>
+                            <field name="category_id" attrs="{'readonly': [('validated', '=', True)]}"/>
+                            <field name="surgeon_ids" widget="many2many_tags" attrs="{'readonly': [('validated', '=', True)]}"/>
+                            <field name="cases" attrs="{'readonly': [('validated', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <br/><br/><br/><br/>
+                            <field name="total_amount" />
+                        </group>
+                    </group>
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    
+
+    <record model="ir.actions.act_window" id="action_surgery_entry_views">
+        <field name="name">Entries</field>
+        <field name="res_model">sk.surgery_entry</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here, to create a new entry.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_action_surgery_entry_views" parent="surgeon_kit.menu_surgeon_kit" action="action_surgery_entry_views" sequence="10"/>
+
+</odoo>
