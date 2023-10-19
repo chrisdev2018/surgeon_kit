@@ -8,7 +8,6 @@ class SurgeryEntry(models.Model):
     _name = 'sk.surgery_entry'
     _description = "Record every entry"
 
-    @api.multi
     def validate(self):
         for entry in self:
             try:
