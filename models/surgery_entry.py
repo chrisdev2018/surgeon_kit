@@ -10,39 +10,36 @@ class SurgeryEntry(models.Model):
 
     def validate(self):
         for entry in self:
-            try:
-                matrix_surgeon_lines = self.env['sk.matrix_surgeon'].search([
-                    ('category_id', '=', entry.category_id.id),
-                    ('surgery_id', '=', entry.surgery_id.id)]).filtered(
-                        lambda x: x.surgeon_id in entry.surgeon_ids)
-                
-                matrix_motivation_lines = self.env['sk.matrix_motivation'].search([
-                    ('category_id', '=', entry.category_id.id), ('surgery_id', '=', entry.surgery_id.id)
-                ])
+            matrix_surgeon_lines = self.env['sk.matrix_surgeon'].search([
+                ('category_id', '=', entry.category_id.id),
+                ('surgery_id', '=', entry.surgery_id.id)]).filtered(
+                    lambda x: x.surgeon_id in entry.surgeon_ids)
+            
+            matrix_motivation_lines = self.env['sk.matrix_motivation'].search([
+                ('category_id', '=', entry.category_id.id), ('surgery_id', '=', entry.surgery_id.id)
+            ])
 
-                for line in matrix_surgeon_lines:
-                    if line.surgeon_id in entry.surgeon_ids:
-                        total_surgeon = entry.cases * line.rate
-                        self.env['sk.surgeon_allocation_line'].create({
-                            'surgeon_id': line.surgeon_id.id,
-                            'surgery_entry_id': entry.id,
-                            'percentage': total_surgeon * (20/100),
-                            'payable': total_surgeon * (80/100)
-                            })
-                
-                if matrix_motivation_lines:
-                    for line in matrix_motivation_lines:
-                        total_motivation = entry.cases * line.rate
-                        self.env['sk.motivation_allocation_line'].create({
-                            'motivation_section_id': line.motivation_id.id,
-                            'surgery_entry_id': entry.id,
-                            'percentage': total_motivation * (20/100),
-                            'payable': total_motivation * (80/100)
+            for line in matrix_surgeon_lines:
+                if line.surgeon_id in entry.surgeon_ids:
+                    total_surgeon = entry.cases * line.rate
+                    self.env['sk.surgeon_allocation_line'].create({
+                        'surgeon_id': line.surgeon_id.id,
+                        'surgery_entry_id': entry.id,
+                        'percentage': total_surgeon * (20/100),
+                        'payable': total_surgeon * (80/100)
                         })
+            
+            if matrix_motivation_lines:
+                for line in matrix_motivation_lines:
+                    total_motivation = entry.cases * line.rate
+                    self.env['sk.motivation_allocation_line'].create({
+                        'motivation_section_id': line.motivation_id.id,
+                        'surgery_entry_id': entry.id,
+                        'percentage': total_motivation * (20/100),
+                        'payable': total_motivation * (80/100)
+                    })
 
-                        self.write({'validated': True})
-            except:
-                ValidationError('Le traitement ne s\'est pas bien déroulé')            
+            entry.write({'validated': True})                       
         return True
 
 
@@ -136,6 +133,7 @@ class SurgeryEntry(models.Model):
                         ('surgeon_id', '=', surgeon.id),
                         ('category_id', '=', rec.category_id.id)
                     ]):
+                        import pdb
                         raise ValidationError(
                             'There is no Matrix (%s, %s) for the surgeon: %s' %
                              (rec.surgery_id.name, rec.category_id.name, surgeon.name)
